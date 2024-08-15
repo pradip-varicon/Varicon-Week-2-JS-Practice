@@ -34,13 +34,9 @@ function handleUserChoice(choice) {
       console.log("Total Revenue: ", calculateTotalRevenue(salesData));
       break;
     case 3:
-      rl.question("Enter the month (1-12): ", (month) => {
-        rl.question("Enter the year (YYYY): ", (year) => {
-          console.log(
-            filterSalesByDate(salesData, parseInt(month), parseInt(year))
-          );
-          showMenu();
-        });
+      rl.question("Enter the date (YYYY-MM): ", (isoDate) => {
+        filterSalesByDate(salesData, isoDate);
+        showMenu();
       });
       return;
     case 4:
