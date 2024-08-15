@@ -1,28 +1,21 @@
 function findTopSellingProduct(salesData) {
-  // Use reduce to accumulate sales totals
-  const sales = salesData.reduce((acc, item) => {
+  let sales = {};
+  let topProduct = { product: null, totalSales: 0 };
+
+  for (let item of salesData) {
     const product = item.product;
     const totalPrice = item.quantity * item.price;
 
-    if (acc[product]) {
-      acc[product] += totalPrice;
+    if (sales[product]) {
+      sales[product] += totalPrice;
     } else {
-      acc[product] = totalPrice;
+      sales[product] = totalPrice;
     }
 
-    return acc;
-  }, {});
-
-  // Use Object.entries and reduce to find the top product
-  const topProduct = Object.entries(sales).reduce(
-    (top, [product, totalSales]) => {
-      if (totalSales > top.totalSales) {
-        return { product, totalSales };
-      }
-      return top;
-    },
-    { product: null, totalSales: 0 }
-  );
+    if (sales[product] > topProduct.totalSales) {
+      topProduct = { product: product, totalSales: sales[product] };
+    }
+  }
 
   return topProduct;
 }
